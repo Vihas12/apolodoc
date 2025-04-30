@@ -62,7 +62,7 @@ function Navbar() {
       
       <div className="bg-white border-b border-gray-300 h-0.5"></div>
 
-      <div className="bg-white h-10 hidden px-0.5 sm:block">
+      <div className="bg-white h-10 hidden lg:block px-0.5">
   <div className="lg:flex justify-center items-center h-full">
     <ul className="flex justify-center items-center gap-14 h-full">
       {[
