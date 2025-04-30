@@ -2,8 +2,53 @@
 
 import React from 'react'
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 import { useState } from 'react';
+import DropdownList from "@/components/DropdownList";
+import FaqAccordion from '@/components/FaqAccordion';
+
+const faqData = [
+  {
+    question: "What is the role of a general physician or GP?",
+    answer: "A general physician or GP, is the first point of contact for patients seeking medical care. They diagnose and treat a wide range of health issues, from minor illnesses to chronic conditions, and provide preventive care. They also refer patients to specialists when necessary."
+  },
+  {
+    question: "When should I visit a general physician for a fever?",
+    answer: "If you have a high fever (above 39°C) that persists for more than three days or is accompanied by other symptoms such as severe headache, rash, or difficulty breathing, it's best to consult a doctor for fever. Infants under three months with any fever should be seen by a doctor for fever immediately, as should adults over 65 with a fever and other symptoms."
+  },
+  {
+    question: "Can a general physician help manage my diabetes?",
+    answer: "Yes, a general physician or diabetes doctor plays a crucial role in managing diabetes. They can monitor your blood sugar levels, adjust your medication, and provide advice on lifestyle changes to help control your diabetes. If needed, they may refer you to a specialist like an endocrinologist for further management."
+  },
+  {
+    question: "How can I book an appointment with a general physician near me?",
+    answer: "You can easily book an appointment with a doctor near your location by searching the phrase general physician near me. Many clinics now offer online general physician consultation services, allowing you to consult with a doctor from the comfort of your home."
+  },
+  {
+    question: "What is the average general physician fee for a consultation?",
+    answer: "The general physician fee varies depending on factors such as location, experience, and the complexity of your health concerns. In India, the consultation fee can range from Rs. 300 to Rs. 1,500 or more. Some clinics may offer discounted rates for online general physician consultation services."
+  },
+  {
+    question: "How can I find reliable general physician reviews before booking an appointment?",
+    answer: "You can find general physician reviews on online platforms such as Google. These reviews provide insights into other patients' experiences with the doctor, including their bedside manner, wait times, and the effectiveness of their treatment. You can also ask for recommendations from friends, family, or your local pharmacist."
+  },
+  {
+    question: "What should I expect during my first visit to a general physician?",
+    answer: "During your first visit, the general physician or GP will take a detailed medical history, asking about your symptoms, lifestyle, and family health history. They will then perform a physical examination and may order tests such as blood work or imaging scans. Based on their findings, they will provide a diagnosis and treatment plan, which may include medication, lifestyle changes, or referrals to specialists."
+  },
+  {
+    question: "Can a general physician treat allergies?",
+    answer: "Yes, an allergies doctor or general physician, can diagnose and treat various types of allergies, including seasonal allergies, food allergies, and drug allergies. They may prescribe antihistamines, nasal sprays, or allergy shots to help manage your symptoms and prevent future allergic reactions."
+  },
+  {
+    question: "How often should I visit my general physician for check-ups?",
+    answer: "The frequency of check-ups depends on your age, health status, and risk factors. Generally, healthy adults should see their general physician or GP every 1-2 years for a routine check-up. Those with chronic conditions like diabetes or heart disease may need more frequent visits to monitor their health and adjust their treatment plans."
+  },
+  {
+    question: "What are the qualifications required to become a general physician in India?",
+    answer: "To become a general physician in India, one must complete an MBBS (Bachelor of Medicine, Bachelor of Surgery) degree from a recognised medical college, followed by a one-year internship. Some doctors may choose to pursue further specialisation through a postgraduate degree like an MD (Doctor of Medicine) in General Medicine or Family Medicine."
+  },
+  // Add more FAQ items here
+];
 
 const cities = [
     "Bengaluru", "Chennai", "Hyderabad", "Kolkata", "Delhi", "Mumbai",
@@ -12,6 +57,46 @@ const cities = [
     "Ahmedabad", "Warangal", "Madurai"
   ];
 
+const treatments = [
+   "Abdominal Pain Treatment",
+  "Coronavirus Symptom Treatment",
+  "Abetalipoproteinemia Treatment",
+  "Electrolyte Disorders Treatment",
+  "Covid Treatment",
+  "COPD Treatment",
+  "Achilles Tendon Tear Treatment",
+  "Abdominal Aortic Aneurysm Treatment",
+  "Abnormal Heartbeat Treatment",
+  "Polyneuropathy Treatment",
+  "Varicocele Treatment",
+  "Violent Behavior Treatment",
+  "Aaestheticos Treatment",
+  "Abandoned Child Syndrome Treatment",
+  "Abnormal Behavior Treatment",
+  "Abnormal / Unusual / Strange Behavior Treatment",
+  "Abnormally Shaped Teeth Treatment",
+  "Absence of the Septum Pellucidum Treatment",
+  "Achilles Tendonitis Treatment"
+  ];
+
+  const ctScansList = [
+    "CT Scan Abdomen",
+    "CT Scan Abdomen Triphasic",
+    "CT Scan Brain",
+    "CT Scan Chest",
+    "CT Scan with Contrast",
+    "CT Angiography: Renal / Brain / Neck",
+    "CT Bronchoscopy",
+    "CT Guided Biopsy",
+    "CT Urography",
+    "HRCT Thorax",
+    "CT Scan Joint 3D",
+    "CT Scan Joint: Knee / Shoulder / Wrist - R/L",
+    "CT Scan Neck",
+    "CT Scan Orbit",
+    "CT Scan Pelvis"
+  ];
+  
 const links = [
     {
       href: "https://www.apollo247.com/specialties/general-physician-internal-medicine-specialists?consultMode=ONLINE",
@@ -23,12 +108,26 @@ const links = [
     }
   ];
 
+
+const EditableCityLabel = ({ defaultValue }: { defaultValue: string }) => {
+  const [value, setValue] = useState(defaultValue);
+
+  return (
+  <>
+    <a className="w-full bg-transparent focus:outline-none text-xs"
+    >{value}</a>
+    </>
+  );
+};
+
 function home() {
     const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
       <div></div>
+
       <div className='mx-5 mt-7 text-sm lg:mx-40 lg:text-md'>
+        {/* content */}
         <div className='mb-8'>
         <b>Book Consult for General Medicine Online</b>
         <br/>
@@ -308,13 +407,16 @@ Getting an appointment with a general physician is easy and convenient with Apol
 </ul>
 <br /><br />
         </div>
+
+        {/* link and dropdowns */}
         <div >
-        <div className="space-y-4">
+
+        <div className="space-y-4 mb-3">
             {links.map((link, idx) => (
                 <div key={idx} className='relative bg-white'>
                 <a
                     href={link.href}
-                    className="flex items-center text-sm lg:gap-10 lg:pr-0"
+                    className="flex items-center text-md lg:w-150"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -327,66 +429,49 @@ Getting an appointment with a general physician is easy and convenient with Apol
                 </div>
             ))}
         </div>
-        <div className="relative w-full">
 
-        <div className="relative inline-block w-full">
-            <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="inline-flex justify-between items-center w-full bg-white my-4 text-sm font-bold cursor-pointer"
-            >
-            General Physician / Internal Medicine Specialists in top cities
-            {isOpen ? (
-                <RiArrowDropUpLine size={24} className="ml-2" />
-                ) : (
-                <RiArrowDropDownLine size={24} className="ml-2" />
-                )}
-            </button>
+        <div className='mb-8'>
+        <div className='lg:w-110 relative z-10'>
+          <DropdownList
+            label="General Physician / Internal Medicine Specialists in top cities"
+            items={cities}
+            // Example alternative editable item
+            renderItem={(city) => (
+              <EditableCityLabel defaultValue={`Best General Physician / Internal Medicine Specialists in ${city}`} />
+            )}
 
-            {isOpen && (
-                <ul className="absolute left-0 right-0 z-10 mt-1 bg-white py-1 text-xs text-gray-500 overflow-auto grid grid-cols-1 lg:grid-cols-2 gap-x-4 list-disc list-inside">
-                    {cities.map((city, index) => (
-                    <li
-                        key={index}
-                        className="px-4 py-2 cursor-pointer"
-                    >
-                        Best General Physician / Internal Medicine Specialists in {city}
-                    </li>
-                    ))}
-                </ul>
-                )}
-
+          />
         </div>
 
-        {/* <div className="relative inline-block w-full">
-            <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="inline-flex justify-between items-center w-full bg-white mb-4 text-sm font-bold cursor-pointer"
-            >
-            General Physician / Internal Medicine Specialists in top cities
-            {isOpen ? (
-                <RiArrowDropUpLine size={24} className="ml-2" />
-                ) : (
-                <RiArrowDropDownLine size={24} className="ml-2" />
-                )}
-            </button>
+        <div className='lg:w-110 relative z-10'>
+          <DropdownList
+            label="Related Treatments"
+            items={treatments}
+            // Example alternative editable item
+            renderItem={(treatments) => (
+              <EditableCityLabel defaultValue={`Treatment for in ${treatments}`} />
+            )}
 
-            {isOpen && (
-                <ul className="absolute left-0 right-0 z-10 mt-1 bg-white  max-h-96 py-1 text-xs text-gray-500 overflow-auto grid grid-cols-1 lg:grid-cols-2 gap-x-4 list-disc list-inside">
-                    {cities.map((city, index) => (
-                    <li
-                        key={index}
-                        className="px-4 py-2 cursor-pointer"
-                    >
-                        Best General Physician / Internal Medicine Specialists in {city}
-                    </li>
-                    ))}
-                </ul>
-                )}
-        </div> */}
+          />
+        </div>
+
+        <div className='lg:w-110 relative z-10'>
+          <DropdownList
+            label="Related Procedures"
+            items={ctScansList}
+            // Example alternative editable item
+            renderItem={(ctScansList) => (
+              <EditableCityLabel defaultValue={`Doctors for ${ctScansList}`} />
+            )}
+
+          />
+        </div>
         </div>
 
         </div>
-        <div></div>
+
+        <FaqAccordion faqs={faqData} />
+
       </div>
     </div>
   )
