@@ -5,6 +5,9 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import { useState } from 'react';
 import DropdownList from "@/components/DropdownList";
 import FaqAccordion from '@/components/FaqAccordion';
+import DoctorList from '@/components/DoctorList';
+import FilterSidebar from '@/components/FilterSidebar';
+import Advertisement from '@/components/Advertisement';
 
 const faqData = [
   {
@@ -121,10 +124,14 @@ const EditableCityLabel = ({ defaultValue }: { defaultValue: string }) => {
 };
 
 function home() {
-    const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
-      <div></div>
+
+      <div className="flex min-h-175 mx-5 border-b-4 border-gray-400 text-sm lg:mx-32">
+      <FilterSidebar />
+      <DoctorList />
+      <Advertisement />
+    </div>
 
       <div className='mx-5 mt-7 text-sm lg:mx-40 lg:text-md'>
         {/* content */}
