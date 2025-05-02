@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import DoctorCard from './DoctorCard';
 import { FaChevronRight } from "react-icons/fa";
 import { PiSliders } from "react-icons/pi";
+import { FaArrowRight } from "react-icons/fa6";
 import SortDropdown from './SortDropdown';
+import FilterLeftSlide from './FilterLeftSlide';
 import axios from 'axios';
 
 export interface Doctor {
@@ -38,9 +40,17 @@ export default function DoctorList({ filters }: { filters: Filters }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
-
   const limit = 10; // Number of doctors per page
 
+  const [showMobileFilter, setShowMobileFilter] = useState(false);
+  const [filter, setFilters] = useState<Filters>({
+    hospitalVisit: true,
+    onlineConsult: true,
+    experience: [],
+    feeRange: [],
+    language: [],
+    clinic: [],
+  });
   // Fetch doctors data from the API
   const fetchDoctors = async (page: number) => {
     try {
@@ -128,13 +138,28 @@ export default function DoctorList({ filters }: { filters: Filters }) {
         <h2 className="text-2xl font-bold">Consult General Physicians Online - Internal Medicine Specialists<br/><p className='text-base font-light'>({filteredDoctors.length} doctors)</p></h2>
         <div className='flex items-center gap-2'>
           <SortDropdown onSortChange={(option) => console.log('Sort by:', option)} />
-          <button className="h-10 w-25 px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer lg:hidden">
-            <div className='flex items-center gap-1'>
-              <PiSliders size={20} /><span className="text-sm font-semibold">Filters</span>
+          <button
+            className="h-10 w-25 px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer lg:hidden"
+            onClick={() => setShowMobileFilter(true)}
+          >
+            <div className="flex items-center gap-1">
+              <PiSliders size={20} />
+              <span className="text-sm font-semibold">Filters</span>
             </div>
           </button>
+          <div className='h-10 lg:hidden flex text-sm font-bold text-white bg-cyan-700 p-2 rounded-md hover:shadow-lg items-center justify-center'>
+                  <a href="/new">Add Doctor</a>
+                  <FaArrowRight className='ml-2'/>
+          </div>
         </div>
       </div>
+      <FilterLeftSlide
+        filters={filters}
+        setFilters={setFilters}
+        showMobile={showMobileFilter}
+        onClose={() => setShowMobileFilter(false)}
+      />
+
 
       <div className='overflow-y-scroll space-y-3 h-250 lg:h-130'>
         {loading ? (

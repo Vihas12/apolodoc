@@ -108,7 +108,7 @@ const DoctorForm = () => {
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-lg mx-auto p-4 border rounded shadow">
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-lg mx-auto p-4 bg-cyan-200 border-2 border-cyan-800  rounded shadow">
       {Object.entries(form).map(([key, value]) => (
         key !== 'photoUrl' && key !== 'language' && (
           <div key={key}>

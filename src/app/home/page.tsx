@@ -8,6 +8,7 @@ import FaqAccordion from '@/components/FaqAccordion';
 import DoctorList from '@/components/DoctorList';
 import FilterSidebar from '@/components/FilterSidebar';
 import Advertisement from '@/components/Advertisement';
+import { FaArrowRight } from "react-icons/fa6";
 
 const faqData = [
   {
@@ -137,8 +138,14 @@ function home() {
     <div>
 
       <div className="flex min-h-320 mx-5 border-b-4 border-gray-400 text-sm lg:mx-32 lg:min-h-190">
+      <div>
       <FilterSidebar filters={filters} setFilters={setFilters} />
-        <DoctorList filters={filters} />
+      <div className='hidden lg:flex text-base mt-2 font-bold bg-cyan-100 text-cyan-800 border-2 border-cyan-800 p-2 rounded-2xl hover:shadow-lg items-center justify-center'>
+        <a href="/new">Add Doctor</a>
+        <FaArrowRight className='ml-2'/>
+      </div>
+      </div>
+      <DoctorList filters={filters} />
       <Advertisement />
     </div>
 
