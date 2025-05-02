@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 const DoctorForm = () => {
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [form, setForm] = useState({
     name: '',
@@ -11,6 +11,7 @@ const DoctorForm = () => {
     yearsExperience: '',
     qualifications: '',
     location: '',
+    language: [] as string[], // Array of languages
     clinic: '',
     rating: 0,
     ratingCount: '',
@@ -32,6 +33,16 @@ const DoctorForm = () => {
     setForm(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    setForm(prev => {
+      const newLanguages = checked
+        ? [...prev.language, value]
+        : prev.language.filter(language => language !== value);
+      return { ...prev, language: newLanguages };
+    });
+  };
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -51,9 +62,8 @@ const DoctorForm = () => {
       if (data.secure_url) {
         setForm(prev => ({ ...prev, photoUrl: data.secure_url }));
         if (fileInputRef.current) {
-            fileInputRef.current.value = '';
-          }
-          
+          fileInputRef.current.value = '';
+        }
       }
     } catch (error) {
       console.error("Image upload failed", error);
@@ -80,6 +90,7 @@ const DoctorForm = () => {
         yearsExperience: '',
         qualifications: '',
         location: '',
+        language: [], // Reset language
         clinic: '',
         rating: 0,
         ratingCount: '',
@@ -92,10 +103,14 @@ const DoctorForm = () => {
     }
   };
 
+  const languages = [
+    'English', 'Hindi', 'Telugu', 'Punjabi', 'Bengali', 'Marathi', 'Urdu', 'Gujarati', 'Tamil', 'Kannada', 'Oriya', 'Persian', 'Assamese'
+  ];
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-lg mx-auto p-4 border rounded shadow">
       {Object.entries(form).map(([key, value]) => (
-        key !== 'photoUrl' && (
+        key !== 'photoUrl' && key !== 'language' && (
           <div key={key}>
             <label className="block font-medium capitalize">{key}</label>
             <input
@@ -109,6 +124,24 @@ const DoctorForm = () => {
           </div>
         )
       ))}
+
+      <div>
+        <label className="block font-medium">Language</label>
+        <div className="grid grid-cols-2 gap-4">
+          {languages.map(language => (
+            <label key={language} className="flex items-center">
+              <input
+                type="checkbox"
+                value={language}
+                checked={form.language.includes(language)}
+                onChange={handleLanguageChange}
+                className="mr-2"
+              />
+              {language}
+            </label>
+          ))}
+        </div>
+      </div>
 
       {mounted && (
         <div>

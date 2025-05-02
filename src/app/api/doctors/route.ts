@@ -20,6 +20,7 @@ export async function POST(req: Request) {
       await connectMongoDB();
 
       const data = await req.json();
+
       const doctor = await Doctor.create(data);
       return NextResponse.json(doctor, { status: 201 });
     } catch (error) {

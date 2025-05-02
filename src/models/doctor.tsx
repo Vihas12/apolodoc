@@ -7,6 +7,7 @@ export interface IDoctor extends Document {
   yearsExperience?: string;
   qualifications?: string;
   location?: string;
+  language?: string[];
   clinic?: string;
   rating?: number;
   ratingCount?: string;
@@ -25,6 +26,7 @@ const DoctorSchema: Schema = new Schema<IDoctor>(
     yearsExperience: { type: String },
     qualifications: { type: String },
     location: { type: String },
+    language: { type: [String] },
     clinic: { type: String },
     rating: { type: Number, default: 0 },
     ratingCount: { type: String, default: '0' },

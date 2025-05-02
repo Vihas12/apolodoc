@@ -13,6 +13,7 @@ export interface Doctor {
   yearsExperience: string;
   qualifications: string;
   location: string;
+  language: string[];
   clinic: string;
   rating: number;
   ratingCount: string;
@@ -20,7 +21,68 @@ export interface Doctor {
   visitFee: number;
 }
 
-export default function DoctorList() {
+interface Filters {
+  experience: string[];
+  feeRange: string[];
+  clinic: string[];
+  language: string[];
+  hospitalVisit: boolean;
+  onlineConsult: boolean;
+}
+
+
+export default function DoctorList({ filters }: { filters: Filters }) {
+
+  const [allDoctors, setAllDoctors] = useState<Doctor[]>([]);
+  const [filteredDoctors, setFilteredDoctors] = useState<Doctor[]>([]);
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      const res = await fetch('/api/doctors');
+      const data = await res.json();
+      setAllDoctors(data);
+    };
+    fetchDoctors();
+  }, []);
+
+  useEffect(() => {
+    const applyFilters = () => {
+      const result = allDoctors.filter((doc) => {
+        const experience = parseInt(doc.yearsExperience);
+        const matchesExperience = filters.experience.length === 0 || filters.experience.some((range) => {
+          if (range === "0-5") return experience <= 5;
+          if (range === "6-10") return experience >= 6 && experience <= 10;
+          if (range === "11-16") return experience >= 11 && experience <= 16;
+          if (range === "16+") return experience > 16;
+        });
+
+        const matchesFee =
+          filters.feeRange.length === 0 ||
+          filters.feeRange.some((range) => {
+            if (range === "100-500") return doc.visitFee >= 100 && doc.visitFee <= 500;
+            if (range === "500-1000") return doc.visitFee > 500 && doc.visitFee <= 1000;
+            if (range === "1000+") return doc.visitFee > 1000;
+          });
+
+        const matchesClinic =
+          filters.clinic.length === 0 || filters.clinic.includes(doc.clinic);
+
+          const matchesLanguage =
+          filters.language.length === 0 || filters.language.some(lang => Array.isArray(doc.language) && doc.language.includes(lang));
+                
+        const matchesMode =
+          (filters.hospitalVisit && doc.visitFee > 0) ||
+          (filters.onlineConsult && doc.onlineFee > 0);
+
+        return matchesExperience && matchesFee && matchesClinic && matchesLanguage && matchesMode;
+      });
+
+      setFilteredDoctors(result);
+    };
+
+    applyFilters();
+  }, [filters, allDoctors]);
+
   const [doctors, setDoctors] = useState<Doctor[]>([]);
 
   useEffect(() => {
@@ -58,8 +120,8 @@ export default function DoctorList() {
       </div>
 
       <div className='overflow-y-scroll space-y-3 h-250 lg:h-130'>
-      {doctors.map((doctor, index) => (
-        <DoctorCard key={index} {...doctor} />
+      {filteredDoctors.map((doc, i) => (
+        <DoctorCard key={i} {...doc} />
       ))}
       </div>
       

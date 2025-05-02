@@ -124,12 +124,21 @@ const EditableCityLabel = ({ defaultValue }: { defaultValue: string }) => {
 };
 
 function home() {
+  const [filters, setFilters] = useState({
+    hospitalVisit: true,
+    onlineConsult: true,
+    experience: [] as string[],
+    feeRange: [] as string[],
+    language: [] as string[],
+    clinic: [] as string[],
+  });
+
   return (
     <div>
 
       <div className="flex min-h-300 mx-5 border-b-4 border-gray-400 text-sm lg:mx-32 lg:min-h-175">
-      <FilterSidebar />
-      <DoctorList />
+      <FilterSidebar filters={filters} setFilters={setFilters} />
+        <DoctorList filters={filters} />
       <Advertisement />
     </div>
 
