@@ -28,12 +28,12 @@ const DoctorCard = ({
   visitFee,
 }: DoctorCardProps) => {
   return (
-    <div className="border border-gray-200 max-w mx-auto bg-white overflow-hidden hover:shadow-md lg:grid lg:grid-cols-2 min-h-[150px] sm:min-h-[130px]">
-      <div className="flex items-center p-3 sm:p-2">
+    <div className="border border-gray-200 max-w mx-auto bg-white overflow-hidden hover:shadow-md lg:grid lg:grid-cols-2 min-h-[150px] sm:min-h-[130px] cursor-pointer">
+      <div className="flex p-3 sm:p-2">
         <img
           src={photoUrl || "https://images.apollo247.in/images/consult_home/icons/male.png?tr=q-80,f-auto,w-100,dpr-2,c-at_max"}
           alt="Doctor"
-          className="w-12 h-12 rounded-full mr-4"
+          className="w-18 h-16 mr-4 mt-3"
         />
         <div className="space-y-1">
           <h3 className="text-lg font-semibold">{name}</h3>
