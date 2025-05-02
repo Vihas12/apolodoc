@@ -103,7 +103,13 @@ export default function FilterSidebar({ filters, setFilters }: FilterSidebarProp
               {exp}
             </label>
           ))}
-          <ShowMoreInputs buttonText="+1 More" inputLabels={["16+"]} />
+          <ShowMoreInputs
+            buttonText="+1 More"
+            inputLabels={["16+"]}
+            filterKey="experience"  // Key to update experience filter
+            filters={filters}       // Pass filters state
+            setFilters={setFilters} // Pass setFilters function
+          />
         </div>
       </div>
 
@@ -152,6 +158,9 @@ export default function FilterSidebar({ filters, setFilters }: FilterSidebarProp
               "Persian",
               "Assamese",
             ]}
+            filterKey="language"  // Key to update language filter
+            filters={filters}     // Pass filters state
+            setFilters={setFilters} // Pass setFilters function
           />
         </div>
       </div>

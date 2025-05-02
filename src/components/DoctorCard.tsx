@@ -1,3 +1,5 @@
+import { IoMdThumbsUp } from "react-icons/io";
+
 interface DoctorCardProps {
   photoUrl?: string;
   name: string;
@@ -44,7 +46,7 @@ const DoctorCard = ({
           {location && <p className="text-gray-500 text-xs">{location}</p>}
           {clinic && <p className="text-gray-500 text-xs">{clinic}</p>}
           {rating !== 0 && ratingCount && (
-            <p className="text-green-600 text-xs">👍 {rating} ({ratingCount})</p>
+            <p className="text-green-600 text-xs flex items-center"><IoMdThumbsUp size={20} className="mr-1"/> {rating} <span className="text-gray-400">({ratingCount}+ Patients)</span></p>
           )}
         </div>
       </div>
