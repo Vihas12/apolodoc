@@ -127,7 +127,7 @@ const Footer = () => {
         
       </div>
 
-      <div className="border-t-4 border-gray-400 pt-15 max-w-7xl mx-auto mt-10 text-center flex  items-center  lg:justify-between lg:text-left space-y-4 lg:space-y-0 lg:flex-row-reverse">
+      <div className="border-t-4 border-gray-400 pt-15 max-w-7xl mx-auto mt-10 text-center flex flex-col space-y-9  items-center  lg:justify-between lg:text-left space-y-4 lg:space-y-0 lg:flex-row-reverse">
   
           {/* Social Media Icons - Show First on Small Screens */}
           <div className="order-1 lg:order-none flex flex-col items-center space-y-2">
