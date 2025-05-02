@@ -136,7 +136,7 @@ function home() {
   return (
     <div>
 
-      <div className="flex min-h-300 mx-5 border-b-4 border-gray-400 text-sm lg:mx-32 lg:min-h-175">
+      <div className="flex min-h-320 mx-5 border-b-4 border-gray-400 text-sm lg:mx-32 lg:min-h-190">
       <FilterSidebar filters={filters} setFilters={setFilters} />
         <DoctorList filters={filters} />
       <Advertisement />
