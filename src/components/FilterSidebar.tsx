@@ -1,7 +1,21 @@
+import React, { useState } from "react";
+
 import ShowMoreInputs from "./ShowMoreInputs";
 export default function FilterSidebar() {
+  const [hospitalVisit, setHospitalVisit] = useState(true);
+  const [onlineConsult, setOnlineConsult] = useState(true);
+
+  const handleHospitalChange = () => {
+    if (!onlineConsult) return; // prevent both from being false
+    setHospitalVisit(!hospitalVisit);
+  };
+
+  const handleOnlineChange = () => {
+    if (!hospitalVisit) return; // prevent both from being false
+    setOnlineConsult(!onlineConsult);
+  };
     return (
-      <aside className="w-55 border-r pr-4 pt-3 h-175 overflow-y-scroll">
+      <aside className="w-55 pr-4 pt-3 h-175 overflow-y-scroll hidden lg:block">
         <div className="flex items-center justify-between mb-4 border-b border-gray-300 pb-4">
         <h2 className="text-base font-semibold">Filters</h2>
         <button className="text-base cursor-pointer text-cyan-800 font-semibold">Clear All</button>
@@ -12,8 +26,8 @@ export default function FilterSidebar() {
         <div className="mb-4">
           <h3 className="font-semibold text-base">Mode of Consult</h3>
           <div className="space-y-4 mt-3 pl-2">
-            <label className="block"><input type="checkbox" defaultChecked /> Hospital Visit</label>
-            <label className="block"><input type="checkbox" defaultChecked /> Online Consult</label>
+            <label className="block"><input type="checkbox" checked={hospitalVisit} onChange={handleHospitalChange} /> Hospital Visit</label>
+            <label className="block"><input type="checkbox" checked={onlineConsult} onChange={handleOnlineChange} /> Online Consult</label>
           </div>
         </div>
   

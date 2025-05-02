@@ -29,13 +29,13 @@ export default function SortDropdown({ onSortChange }: SortDropdownProps) {
     <div className="relative inline-block text-left">
       <button
         onClick={() => setOpen(!open)}
-        className="w-43 h-12 flex items-center justify-between gap-2 px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer"
+        className="w-33 h-10 bg-cyan-100 border-cyan-800 lg:w-43 lg:h-12 flex items-center justify-between gap-2 px-4 py-2 border lg:border-gray-300 rounded-md lg:bg-white cursor-pointer"
       >
         <div className='flex items-center'> 
-            <LuArrowUpDown size={25} className='text-gray-800 mr-1'/>
-            <span className="text-sm font-medium">{selected}</span>
+            <LuArrowUpDown size={25} className='text-gray-800 mr-1 hidden lg:block'/>
+            <span className="text-sm font-semibold text-cyan-800 lg:text-gray-800 lg:font-medium">{selected}</span>
         </div>
-         {open ? <RiArrowDropUpLine size={24} /> : <RiArrowDropDownLine size={24} />}
+         {open ? <RiArrowDropUpLine size={24} className='text-cyan-800 lg:text-gray-800'/> : <RiArrowDropDownLine size={24} className='text-cyan-800 lg:text-gray-800'/>}
       </button>
 
       {open && (
