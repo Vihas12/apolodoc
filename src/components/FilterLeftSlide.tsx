@@ -36,14 +36,13 @@ export default function FilterLeftSlide({
   };
 
   const handleHospitalChange = () => {
-    if (!filters.onlineConsult) return;
     setFilters((prev) => ({ ...prev, hospitalVisit: !prev.hospitalVisit }));
   };
-
+  
   const handleOnlineChange = () => {
-    if (!filters.hospitalVisit) return;
     setFilters((prev) => ({ ...prev, onlineConsult: !prev.onlineConsult }));
   };
+  
 
   const sidebarContent = (
     <>

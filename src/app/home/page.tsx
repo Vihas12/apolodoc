@@ -453,7 +453,7 @@ Getting an appointment with a general physician is easy and convenient with Apol
             ))}
         </div>
 
-        <div className='mb-8'>
+        <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className='lg:w-110 relative z-10'>
           <DropdownList
             label="General Physician / Internal Medicine Specialists in top cities"

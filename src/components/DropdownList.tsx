@@ -11,7 +11,7 @@ const DropdownList = ({ label, items, renderItem }: DropdownListProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-250">
+    <div className="w-full relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex justify-start items-center bg-white py-2 text-sm font-bold cursor-pointer"

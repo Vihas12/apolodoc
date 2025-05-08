@@ -134,25 +134,41 @@ export default function DoctorList({ filters }: { filters: Filters }) {
         <a href="#" className='text-black'>General Physicians</a>
       </div>
 
-      <div className='flex flex-col-reverse gap-2 lg:mt-7.5 lg:flex-row lg:items-center lg:justify-between'>
-        <h2 className="text-2xl font-bold">Consult General Physicians Online - Internal Medicine Specialists<br/><p className='text-base font-light'>({filteredDoctors.length} doctors)</p></h2>
-        <div className='flex items-center gap-2'>
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:mt-8">
+        {/* Heading */}
+        <div>
+          <h2 className="text-2xl font-bold leading-tight">
+            Consult General Physicians Online - Internal Medicine Specialists
+          </h2>
+          <p className="text-base font-light mt-1">
+            ({filteredDoctors.length} doctors)
+          </p>
+        </div>
+
+        {/* Sort & Actions */}
+        <div className="flex flex-wrap items-center gap-3">
           <SortDropdown onSortChange={(option) => console.log('Sort by:', option)} />
+
+          {/* Mobile Filter Button */}
           <button
-            className="h-10 w-25 px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer lg:hidden"
+            className="h-10 px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer lg:hidden flex items-center gap-2"
             onClick={() => setShowMobileFilter(true)}
           >
-            <div className="flex items-center gap-1">
-              <PiSliders size={20} />
-              <span className="text-sm font-semibold">Filters</span>
-            </div>
+            <PiSliders size={20} />
+            <span className="text-sm font-semibold">Filters</span>
           </button>
-          <div className='h-10 lg:hidden flex text-sm font-bold text-white bg-cyan-700 p-2 rounded-md hover:shadow-lg items-center justify-center'>
-                  <a href="/new">Add Doctor</a>
-                  <FaArrowRight className='ml-2'/>
-          </div>
+
+          {/* Mobile Add Doctor Button */}
+          <a
+            href="/new"
+            className="h-10 lg:hidden flex items-center justify-center gap-2 text-sm font-bold text-white bg-cyan-700 px-4 py-2 rounded-md hover:shadow-lg"
+          >
+            Add Doctor
+            <FaArrowRight />
+          </a>
         </div>
       </div>
+
       <FilterLeftSlide
         filters={filters}
         setFilters={setFilters}
