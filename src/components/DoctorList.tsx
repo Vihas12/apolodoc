@@ -127,90 +127,95 @@ export default function DoctorList({ filters }: { filters: Filters }) {
   };
 
   return (
-    <div className="flex-1 space-y-4 mt-3 h-175 lg:pl-12">
-      <div className='flex items-center text-xs text-cyan-800'>
-        <a href="#">Home</a><FaChevronRight className='text-black mx-1' size={10} />
-        <a href="#">Doctors</a><FaChevronRight className='text-black mx-1' size={10} />
-        <a href="#" className='text-black'>General Physicians</a>
-      </div>
-
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:mt-8">
-        {/* Heading */}
-        <div>
-          <h2 className="text-2xl font-bold leading-tight">
-            Consult General Physicians Online - Internal Medicine Specialists
-          </h2>
-          <p className="text-base font-light mt-1">
-            ({filteredDoctors.length} doctors)
-          </p>
+      <div className="flex-1 space-y-6 mt-4 h-auto lg:pl-12">
+        {/* Breadcrumbs */}
+        <div className="flex flex-wrap items-center text-xs text-cyan-800">
+          <a href="#">Home</a>
+          <FaChevronRight className="text-black mx-1" size={10} />
+          <a href="#">Doctors</a>
+          <FaChevronRight className="text-black mx-1" size={10} />
+          <a href="#" className="text-black">General Physicians</a>
         </div>
 
-        {/* Sort & Actions */}
-        <div className="flex flex-wrap items-center gap-3">
-          <SortDropdown onSortChange={(option) => console.log('Sort by:', option)} />
+        {/* Header & Actions */}
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 className="text-2xl font-bold leading-tight">
+              Consult General Physicians Online - Internal Medicine Specialists
+            </h2>
+            <p className="text-base font-light mt-1">
+              ({filteredDoctors.length} doctors)
+            </p>
+          </div>
 
-          {/* Mobile Filter Button */}
-          <button
-            className="h-10 px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer lg:hidden flex items-center gap-2"
-            onClick={() => setShowMobileFilter(true)}
-          >
-            <PiSliders size={20} />
-            <span className="text-sm font-semibold">Filters</span>
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <SortDropdown onSortChange={(option) => console.log('Sort by:', option)} />
 
-          {/* Mobile Add Doctor Button */}
-          <a
-            href="/new"
-            className="h-10 lg:hidden flex items-center justify-center gap-2 text-sm font-bold text-white bg-cyan-700 px-4 py-2 rounded-md hover:shadow-lg"
-          >
-            Add Doctor
-            <FaArrowRight />
-          </a>
+            {/* Filter Button for Mobile */}
+            <button
+              className="h-10 px-4 py-2 border border-gray-300 rounded-md bg-white cursor-pointer lg:hidden flex items-center gap-2"
+              onClick={() => setShowMobileFilter(true)}
+            >
+              <PiSliders size={20} />
+              <span className="text-sm font-semibold">Filters</span>
+            </button>
+
+            {/* Add Doctor Button for Mobile */}
+            <a
+              href="/new"
+              className="h-10 lg:hidden flex items-center justify-center gap-2 text-sm font-bold text-white bg-cyan-700 px-4 py-2 rounded-md hover:shadow-lg"
+            >
+              Add Doctor
+              <FaArrowRight />
+            </a>
+          </div>
         </div>
-      </div>
 
-      <FilterLeftSlide
-        filters={filters}
-        setFilters={setFilters}
-        showMobile={showMobileFilter}
-        onClose={() => setShowMobileFilter(false)}
-      />
+        {/* Slide Filter (mobile) */}
+        <FilterLeftSlide
+          filters={filters}
+          setFilters={setFilters}
+          showMobile={showMobileFilter}
+          onClose={() => setShowMobileFilter(false)}
+        />
 
-
-      <div className='overflow-y-scroll space-y-3 h-250 lg:h-130'>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          filteredDoctors.length > 0 ? (
+        {/* Doctor List */}
+        <div className="space-y-3 max-h-[59rem] overflow-y-auto lg:max-h-[30rem] pr-2">
+          {loading ? (
+            <p>Loading...</p>
+          ) : filteredDoctors.length > 0 ? (
             filteredDoctors.map((doc, i) => (
               <DoctorCard key={i} {...doc} />
             ))
           ) : (
             <p>No doctors found.</p>
-          )
-        )}
-      </div>
+          )}
+        </div>
 
-      {/* Pagination Controls */}
-      <div className="flex justify-end gap-4 my-4">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="p-2 bg-cyan-800 text-white rounded disabled:bg-gray-400"
-        >
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="p-2 bg-cyan-800 text-white rounded disabled:bg-gray-400"
-        >
-          Next
-        </button>
-      </div>
+        
+
+      {/* Pagination */}
+      <div className="flex justify-end mt-4 mr-3">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="p-2 bg-cyan-800 text-white rounded disabled:bg-gray-400"
+            >
+              Previous
+            </button>
+            <span className="text-sm font-medium">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="p-2 bg-cyan-800 text-white rounded disabled:bg-gray-400"
+            >
+              Next
+            </button>
+          </div>
+          </div>
     </div>
   );
 }
